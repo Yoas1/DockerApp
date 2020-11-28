@@ -1,9 +1,9 @@
 
 # Docker GUI app
 
-## USE with ububntu 20.04
+## Use with ububntu 20.04
 
-### first install docker:
+### Install Docker:
 
 1-Update Local Database:
 >$ sudo apt-get update
@@ -36,3 +36,33 @@
 
 11-Check if you can run docker commands without sudo:
 >$ docker run hello-world
+
+
+### Install Python3
+
+1-Install Python3, Python3-pip and Python3-tk:
+>$ sudo apt-get install python3 python3-pip python3-tk
+
+**2-After pip3 install you must install Docker SDK for python:**
+>**$ pip3 install docker** 
+
+### Install Pycharm
+
+1-Download Pycharme software from here:
+>https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC
+
+2-Extract the file you download.
+
+3-Go to the **bin** folder, right click and choose "open in Terminal".
+
+4-run command: **./pycharm.sh**
+
+5-After install Pycharm software, go to settings:
+> Configure -> Settings
+
+6-Adding Python interpreter:
+>Project Interpreter -> click on gear on right side -> Add -> System Interpreter -> choose python3
+
+7-Create new Project.
+8-install docker SDK in python project interpreter:
+>File -> Settins -> Python Interpreter -> click on plus sign in right side -> search "docker" -> **Install Package**
