@@ -1,7 +1,7 @@
-# DockerApp
-Docker GUI app
 
-USE with ububntu 20.04
+# Docker GUI app
+
+## USE with ububntu 20.04
 
 first install docker:
 
