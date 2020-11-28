@@ -64,5 +64,13 @@
 >Project Interpreter -> click on gear on right side -> Add -> System Interpreter -> choose python3
 
 7-Create new Project.
+
 8-install docker SDK in python project interpreter:
 >File -> Settins -> Python Interpreter -> click on plus sign in right side -> search "docker" -> **Install Package**
+
+9-Load **DockerAPP.py** file to the project.
+
+10-now you can run it.
+
+### ENJOY!!
+ 
