@@ -15,24 +15,24 @@
 >$curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 4-Install the Docker Repository:
-$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs)\ stable"
+>$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs)\ stable"
 
 5-Update Repositories
-$ sudo apt-get update
+>$ sudo apt-get update
 
 6-Install Latest Version of Docker:
-$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+>$ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 7-Check the Docker version:
-$ docker version
+>$ docker version
 
 8-Create the docker group:
-$ sudo groupadd docker
+>$ sudo groupadd docker
 
 9-Add your user to the docker group:
-$ sudo usermod -aG docker ${USER}
+>$ sudo usermod -aG docker ${USER}
 
 10-Logout and log back from your user.
 
 11-Check if you can run docker commands without sudo:
-$ docker run hello-world
+>$ docker run hello-world
