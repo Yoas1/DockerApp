@@ -72,5 +72,38 @@
 
 10-now you can run it.
 
+
+##DOCKER APP
+
+1-For run container insert in "Image for container" the image name like:
+
+>nginx:latest / ubuntu / or you repository :<user>/<name_repo>
+
+2-You can choose name for container in "Name for container".
+
+3-In port insert ports like:
+
+>8000:8000
+
+4-In "Command" insert commands like:
+
+>echo hello world"
+
+5-Click on "Update list" button to update container table.
+
+6-For Start/Stop/Remove insert the name of container in "Name for container" and click button.
+
+7-For pull image insert the image <name>:<tag> in "image for container" and click button "pull"
+
+8-For push image to your Docker Hub you must login!
+
+9-For push after login insert in "Image for container" the name for you repository **<user>/<name_repo>**
+in "Name for container" insert the container name you want push from container table
+in "tag" insert the tag for repository.
+and click "push".
+
+
+
+
 ### ENJOY!!
  
