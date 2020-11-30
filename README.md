@@ -1,7 +1,7 @@
 
 # Docker GUI app
 
-## Use with ububntu 20.04
+## Use with ubuntu 20.04
 
 ### Install Docker:
 
