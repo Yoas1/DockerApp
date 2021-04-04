@@ -150,10 +150,10 @@ def stop():
 
 def login():
     try:
+        name = login_user_text.get()
         log = client.login(username=login_user_text.get(), password=login_pass_text.get())
         status = ''.join(log["Status"])
-        user_text.set(login_user_text.get())
-        login_text.set(status)
+        messagebox.showerror('Docker Run', f'{name} {status}')
     except KeyError:
         messagebox.showerror('Docker Run', f'Allready login!')
     except docker.errors.APIError:
