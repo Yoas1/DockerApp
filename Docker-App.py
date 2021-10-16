@@ -6,12 +6,15 @@ from tkinter import messagebox
 
 client = docker.from_env()
 app = Tk()
-app.geometry("1200x400")
+app.geometry("1200x410")
 app.title("Docker App")
 image_text = StringVar("")
 name_text = StringVar("")
 command_text = StringVar("")
 port_text = StringVar("")
+port_text.set('Container:Host')
+volume_text = StringVar("")
+volume_text.set('/Host:/Container')
 tag_text = StringVar("")
 login_text = StringVar("")
 user_text = StringVar("")
@@ -45,14 +48,20 @@ def run():
             return None
         else:
             image = image_text.get()
-            name = port = command = ''
+            name = port = command = volumes = ''
             if name_text.get() != '':
                 name = name_text.get()
             if command_text.get() != '':
                 command = command_text.get()
-            if port_text.get() != '':
+            if (port_text.get() != '') and (port_text.get() != 'Container:Host'):
                 port = literal_eval('{' + port_text.get() + '}')
-            container = client.containers.run(image=image, name=name, command=command, ports=port, detach=True)  # docker run
+            if (volume_text.get() != '') and (volume_text.get() != '/Host:/Container'):
+                vol= volume_text.get().split(':')
+                v_host = vol[0]
+                v_con = vol[1]
+                volumes = {f'{v_host}': {'bind': f'{v_con}', 'mode': 'rw'}}
+                #volumes = {'/home/yoav/Desktop/DockerApp': {'bind': '/yoav_test', 'mode': 'rw'}}
+            container = client.containers.run(volumes=volumes, image=image, name=name, command=command, ports=port, detach=True)  # docker run
             container_list = [[container.short_id, "".join(container.image.tags), container.name, container.status,
                                " , ".join([f"{key}:{value}" for key, value in container.ports.items()]),
                                container.logs()]]  # insert data to database
@@ -183,20 +192,24 @@ name_label = Label(app, text="Name For Container:", fg='black', font="calibri 12
 name_entry = Entry(app, textvariable=name_text, fg='red', width=17, borderwidth=4).grid(row=4, column=1)
 port_label = Label(app, text="Port:", fg='black', font="calibri 12 bold").grid(row=5, column=0)
 port_entry = Entry(app, textvariable=port_text, fg='red', width=17, borderwidth=4).grid(row=5, column=1)
-command_label = Label(app, text="Command:", fg='black', font="calibri 12 bold").grid(row=6, column=0)
-command_entry = Entry(app, textvariable=command_text, fg='red', width=17, borderwidth=4).grid(row=6, column=1)
+volume_label = Label(app, text="Volume:", fg='black', font="calibri 12 bold").grid(row=6, column=0)
+volume_entry = Entry(app, textvariable=volume_text, fg='red', width=17, borderwidth=4).grid(row=6, column=1)
+command_label = Label(app, text="Command:", fg='black', font="calibri 12 bold").grid(row=7, column=0)
+command_entry = Entry(app, textvariable=command_text, fg='red', width=17, borderwidth=4).grid(row=7, column=1)
 
 # push
-tag_label = Label(app, text="tag", fg='black', font="calibri 12 bold").grid(row=8, column=2, sticky=W)
-tag_entry = Entry(app, textvariable=tag_text, fg='red', width=7, borderwidth=4).grid(row=8, column=2, sticky=E)
+tag_label = Label(app, text="tag", fg='black', font="calibri 12 bold").grid(row=9, column=2, sticky=W)
+tag_entry = Entry(app, textvariable=tag_text, fg='red', width=7, borderwidth=4).grid(row=9, column=2, sticky=E)
 
 # login
-login_user_entry = Entry(app, textvariable=login_user_text, fg='red', width=7, borderwidth=4).grid(row=9, column=0, sticky=W)
-login_pass_entry = Entry(app, textvariable=login_pass_text, fg='red', width=7, borderwidth=4).grid(row=9, column=0, sticky=E)
-user_label = Label(app, text='USER', fg='black', font="calibri 10 bold").grid(row=8, column=0, sticky=W)
-pass_label = Label(app, text='PASS', fg='black', font="calibri 10 bold").grid(row=8, column=0, sticky=E)
+login_user_entry = Entry(app, textvariable=login_user_text, fg='red', width=7, borderwidth=4).grid(row=10, column=0, sticky=W)
+login_pass_entry = Entry(app, textvariable=login_pass_text, fg='red', width=7, borderwidth=4).grid(row=10, column=0, sticky=E)
+user_label = Label(app, text='USER', fg='black', font="calibri 10 bold").grid(row=9, column=0, sticky=W)
+pass_label = Label(app, text='PASS', fg='black', font="calibri 10 bold").grid(row=9, column=0, sticky=E)
 login_user_label = Label(app, textvariable=user_text, fg='black', font="calibri 12 bold").grid(row=10, column=0)
 login_status_label = Label(app, textvariable=login_text, fg='black', font="calibri 12 bold").grid(row=11, column=0)
+p_label = Label(app, text='Powered by Yoas1', fg='black', font="calibri 8").grid(row=12, column=3, sticky=W)
+
 
 # Buttons
 docker_run_bt = Button(app, text="Docker Run!", command=run, bd=4, bg='green', font="calibri 12 bold").grid(row=1, column=2)
@@ -205,7 +218,7 @@ stop_bt = Button(app, text="Stop", command=stop, bd=4).grid(row=4, column=2)
 start_bt = Button(app, text="Start", command=start, bd=4).grid(row=5, column=2)
 remove_bt = Button(app, text="Remove", command=remove, bd=4).grid(row=6, column=2)
 update_tb = Button(app, text="Update list", command=update_table, bd=4).grid(row=0, column=3)
-login_bt = Button(app, text="Login", command=login, bd=4).grid(row=9, column=1)
+login_bt = Button(app, text="Login", command=login, bd=4).grid(row=10, column=1)
 push_bt = Button(app, text="Push", command=push, bd=4).grid(row=9, column=2)
 
 
